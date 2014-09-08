@@ -22,7 +22,7 @@ require_relative 'models/contact'
 
 get '/' do
   @page = params[:page].to_i || 0
-  @contacts = Contact.limit(1).offset(@page)
+  @contacts = Contact.limit(3).offset(@page*3)
   # @query = params[:query]
   @results = Contact.where("first_name = ?", params[:query])
   erb :index
@@ -32,4 +32,12 @@ get '/contacts/:id' do
   id = params[:id]
   @each_contact = Contact.find(id)
   erb :show
+end
+
+get '/add'do
+  erb :add
+end
+
+post '/add' do
+  Contact.create(first_name: params["first_name"], last_name: params["last_name"], phone_number: params["phone"])
 end
