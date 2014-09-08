@@ -1,0 +1,33 @@
+<h1>Contacts</h1>
+
+<ul>
+  <% @contacts.each do |contact| %>
+    <li><%= contact.name %> - <%= contact.phone_number %></li>
+  <% end %>
+</ul>
+
+<form method = 'get' action = "/?query=@query">
+  <label for ='query'>Search: </label>
+  <input type = 'text' name = "query"/>
+  <input type = "submit" value = "search"/>
+</form>
+
+<hr \>
+
+Search Results:
+<br>
+<%@results.each do |result|%>
+  <%= result.name%>-<%= result.phone_number%>
+
+<% end %>
+
+</br>
+<hr \>
+
+<%if @page >=1%>
+<a href="/?page=<%=@page-1%>">Previous Page</a>
+<%end%>
+
+<% if @page <= 5%>
+  <a href="/?page=<%=@page+1%>">Next Page</a>
+<%end%>
