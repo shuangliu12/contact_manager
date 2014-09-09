@@ -22,9 +22,10 @@ require_relative 'models/contact'
 
 get '/' do
   @page = params[:page].to_i || 0
-  @contacts = Contact.limit(3).offset(@page*3)
-  # @query = params[:query]
-  @results = Contact.where("first_name = ?", params[:query])
+  @contacts = Contact.limit(3).offset(@page*3 )
+  @query = params[:query]
+  @results = Contact.where("first_name ilike ? or last_name ilike ?", params[:query], params[:query])
+
   erb :index
 end
 
